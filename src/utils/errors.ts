@@ -55,6 +55,12 @@ export function toCliError(error: unknown): CliError {
   });
 }
 
+export function reportErrorToStderr(error: unknown): number {
+  const message = formatError(error);
+  console.error(message);
+  return toCliError(error).code;
+}
+
 function formatCliError(error: CliError): string {
   const detailEntries = Object.entries(error.details);
 

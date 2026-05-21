@@ -69,6 +69,8 @@ sui-lens package 0x...
 
 At this stage these commands are placeholders that prove the CLI packaging, command registration, and shared option structure.
 
+Note: user-facing errors are written to stderr and the CLI sets non-zero exit codes for automation and scripting.
+
 ## Planned CLI Usage
 
 ### Address
