@@ -1,4 +1,10 @@
-import type { SuiObjectResponse } from "@mysten/sui/jsonRpc";
+import type {
+  GasCostSummary,
+  SuiObjectResponse,
+  SuiTransactionBlockKind,
+  SuiTransactionBlockResponse,
+  TransactionEffects,
+} from "@mysten/sui/jsonRpc";
 
 import type { SupportedNetwork } from "../constants/networks.js";
 import { CliError, EXIT_CODES } from "../utils/errors.js";
@@ -89,6 +95,26 @@ export function normalizeTransactionSummary(input: unknown): TransactionSummary 
   return transactionSummarySchema.parse(input);
 }
 
+export function normalizeTransactionResponse(
+  input: SuiTransactionBlockResponse,
+  network: SupportedNetwork,
+): TransactionSummary {
+  const effects = input.effects ?? null;
+  const transactionData = input.transaction?.data;
+
+  return normalizeTransactionSummary({
+    changedObjectsCount: countChangedObjects(input, effects),
+    digest: input.digest,
+    gas: normalizeGasSummary(transactionData?.gasData, effects?.gasUsed),
+    kind: "tx",
+    network,
+    sender: transactionData?.sender ?? null,
+    status: normalizeExecutionStatus(effects?.status),
+    summary: buildTransactionSummaryText(transactionData?.transaction),
+    timestamp: formatTimestampMs(input.timestampMs),
+  });
+}
+
 export function normalizePackageSummary(input: unknown): PackageSummary {
   return packageSummarySchema.parse(input);
 }
@@ -135,6 +161,90 @@ function getOwnedObjectErrorId(
   }
 
   return "unknown";
+}
+
+function normalizeExecutionStatus(
+  status: TransactionEffects["status"] | undefined,
+): TransactionSummary["status"] {
+  if (status === undefined) {
+    return "unknown";
+  }
+
+  if (status.status === "success") {
+    return "success";
+  }
+
+  if (status.status === "failure") {
+    return "failure";
+  }
+
+  return "unknown";
+}
+
+function normalizeGasSummary(
+  gasData: NonNullable<SuiTransactionBlockResponse["transaction"]>["data"]["gasData"] | undefined,
+  gasUsed: GasCostSummary | undefined,
+): TransactionSummary["gas"] {
+  return {
+    budget: gasData?.budget ?? null,
+    owner: gasData?.owner ?? null,
+    paymentCount: gasData?.payment.length ?? null,
+    total: gasUsed === undefined ? null : formatNetGasCost(gasUsed),
+  };
+}
+
+function formatNetGasCost(gasUsed: GasCostSummary): string {
+  const computation = BigInt(gasUsed.computationCost);
+  const storage = BigInt(gasUsed.storageCost);
+  const rebate = BigInt(gasUsed.storageRebate);
+
+  return (computation + storage - rebate).toString();
+}
+
+function countChangedObjects(
+  input: SuiTransactionBlockResponse,
+  effects: TransactionEffects | null,
+): number | null {
+  if (input.objectChanges !== undefined && input.objectChanges !== null) {
+    return input.objectChanges.length;
+  }
+
+  if (effects === null) {
+    return null;
+  }
+
+  return (
+    (effects.created?.length ?? 0) + (effects.mutated?.length ?? 0) + (effects.deleted?.length ?? 0)
+  );
+}
+
+function buildTransactionSummaryText(
+  transaction: SuiTransactionBlockKind | undefined,
+): string | null {
+  if (transaction === undefined) {
+    return null;
+  }
+
+  if (transaction.kind === "ProgrammableTransaction") {
+    const moveCall = transaction.transactions.find(entry => "MoveCall" in entry);
+
+    if (moveCall !== undefined && "MoveCall" in moveCall) {
+      const { package: packageId, module, function: functionName } = moveCall.MoveCall;
+      return `${packageId}::${module}::${functionName}`;
+    }
+
+    return "ProgrammableTransaction";
+  }
+
+  return transaction.kind;
+}
+
+function formatTimestampMs(timestampMs: string | null | undefined): string | null {
+  if (timestampMs === undefined || timestampMs === null) {
+    return null;
+  }
+
+  return new Date(Number(timestampMs)).toISOString();
 }
 
 function normalizeObjectOwner(
