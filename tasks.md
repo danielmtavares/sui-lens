@@ -168,57 +168,57 @@ Adapt the existing project into a proper CLI foundation so feature work can begi
 
 ### Review the current project setup
 
-- [ ] Review `package.json` and identify what should stay vs what should change for CLI development
-- [ ] Review `tsconfig.json` and keep strict settings intact
-- [ ] Review `tsup.config.ts` and identify build changes needed for an executable CLI
-- [ ] Review the current `src/index.ts` and decide what remains as library/public entry vs what moves to CLI bootstrapping
+- [x] Review `package.json` and identify what should stay vs what should change for CLI development
+- [x] Review `tsconfig.json` and keep strict settings intact
+- [x] Review `tsup.config.ts` and identify build changes needed for an executable CLI
+- [x] Review the current `src/index.ts` and decide what remains as library/public entry vs what moves to CLI bootstrapping
 - [ ] Review the current README and prepare it for product-focused documentation later
 
 ### Add CLI entrypoint and command skeleton
 
-- [ ] Create `src/cli.ts`
-- [ ] Add shebang to `src/cli.ts`
-- [ ] Add `commander` setup
-- [ ] Add top-level help output
-- [ ] Add version output
-- [ ] Register placeholder command structure for `address`, `object`, `tx`, and `package`
-- [ ] Use a stable registration pattern so command workflows can plug in without repeatedly rewriting `src/cli.ts`
-- [ ] Add placeholder shared flags structure for output format and network support
+- [x] Create `src/cli.ts`
+- [x] Add shebang to `src/cli.ts`
+- [x] Add `commander` setup
+- [x] Add top-level help output
+- [x] Add version output
+- [x] Register placeholder command structure for `address`, `object`, `tx`, and `package`
+- [x] Use a stable registration pattern so command workflows can plug in without repeatedly rewriting `src/cli.ts`
+- [x] Add placeholder shared flags structure for output format and network support
 
 ### Add runtime dependencies
 
-- [ ] Add `@mysten/sui`
-- [ ] Add `commander`
-- [ ] Add `zod`
-- [ ] Add `chalk`
+- [x] Add `@mysten/sui`
+- [x] Add `commander`
+- [x] Add `zod`
+- [x] Add `chalk`
 
 ### Update package and build configuration
 
-- [ ] Add `bin` entry to `package.json`
-- [ ] Update `main`, `types`, and `exports` only if necessary after CLI introduction
-- [ ] Update `tsup.config.ts` to build the CLI entry
-- [ ] Ensure the CLI shebang is preserved in the built output
-- [ ] Verify local executable behavior from the build output
-- [ ] Update `pnpm start` if a different command becomes more accurate
+- [x] Add `bin` entry to `package.json`
+- [x] Update `main`, `types`, and `exports` only if necessary after CLI introduction
+- [x] Update `tsup.config.ts` to build the CLI entry
+- [x] Ensure the CLI shebang is preserved in the built output
+- [x] Verify local executable behavior from the build output
+- [x] Update `pnpm start` if a different command becomes more accurate
 
 ### Validate repo readiness
 
-- [ ] Verify `pnpm install` succeeds
-- [ ] Verify `pnpm build` succeeds
-- [ ] Verify `pnpm test -- --run` succeeds
-- [ ] Verify `pnpm typecheck` succeeds
-- [ ] Verify CLI help/version output works
-- [ ] Verify the repo is ready for real command implementation work
+- [x] Verify `pnpm install` succeeds
+- [x] Verify `pnpm build` succeeds
+- [x] Verify `pnpm test -- --run` succeeds
+- [x] Verify `pnpm typecheck` succeeds
+- [x] Verify CLI help/version output works
+- [x] Verify the repo is ready for real command implementation work
 
 ## Files to Create
 
-- [ ] `src/cli.ts`
+- [x] `src/cli.ts`
 
 ## Files to Update
 
-- [ ] `package.json`
-- [ ] `tsup.config.ts`
-- [ ] `src/index.ts`
+- [x] `package.json`
+- [x] `tsup.config.ts`
+- [x] `src/index.ts`
 - [ ] `README.md`
 
 ---
@@ -233,49 +233,49 @@ Create the internal foundation for typed normalization, identifier validation, a
 
 ### Define internal domain types
 
-- [ ] Create `AddressSummary` type
-- [ ] Create `ObjectSummary` type
-- [ ] Create `TransactionSummary` type
-- [ ] Create `PackageSummary` type
-- [ ] Create shared formatter/output types
-- [ ] Create `SupportedNetwork` type
-- [ ] Freeze top-level summary contracts early so command workflows can implement against stable shapes
+- [x] Create `AddressSummary` type
+- [x] Create `ObjectSummary` type
+- [x] Create `TransactionSummary` type
+- [x] Create `PackageSummary` type
+- [x] Create shared formatter/output types
+- [x] Create `SupportedNetwork` type
+- [x] Freeze top-level summary contracts early so command workflows can implement against stable shapes
 
 ### Add schema and normalization scaffolding
 
-- [ ] Create `src/api/schemas.ts`
-- [ ] Create `src/api/normalize.ts`
-- [ ] Add `zod` schemas for the normalized boundary where useful
-- [ ] Decide which SDK responses need explicit validation vs typed mapping only
+- [x] Create `src/api/schemas.ts`
+- [x] Create `src/api/normalize.ts`
+- [x] Add `zod` schemas for the normalized boundary where useful
+- [x] Decide which SDK responses need explicit validation vs typed mapping only
 
 ### Add ID and error utilities
 
-- [ ] Create Sui address/object/package/digest validation helpers
-- [ ] Add reusable user-facing error classes or helpers
-- [ ] Add stderr-safe error formatter
-- [ ] Add terminal helper functions if needed for consistent rendering
+- [x] Create Sui address/object/package/digest validation helpers
+- [x] Add reusable user-facing error classes or helpers
+- [x] Add stderr-safe error formatter
+- [x] Add terminal helper functions if needed for consistent rendering
 
 ### Add tests
 
-- [ ] Add normalization-focused unit tests
-- [ ] Add identifier validation tests
-- [ ] Add error helper tests where useful
+- [x] Add normalization-focused unit tests
+- [x] Add identifier validation tests
+- [x] Add error helper tests where useful
 
 ## Files to Create
 
-- [ ] `src/api/types.ts`
-- [ ] `src/api/schemas.ts`
-- [ ] `src/api/normalize.ts`
-- [ ] `src/utils/errors.ts`
-- [ ] `src/utils/ids.ts`
-- [ ] `src/utils/terminal.ts`
-- [ ] `src/constants/networks.ts`
-- [ ] `test/normalize.test.ts`
+- [x] `src/api/types.ts`
+- [x] `src/api/schemas.ts`
+- [x] `src/api/normalize.ts`
+- [x] `src/utils/errors.ts`
+- [x] `src/utils/ids.ts`
+- [x] `src/utils/terminal.ts`
+- [x] `src/constants/networks.ts`
+- [x] `test/normalize.test.ts`
 
 ## Files to Update
 
-- [ ] `src/index.ts`
-- [ ] `src/cli.ts`
+- [x] `src/index.ts`
+- [x] `src/cli.ts`
 
 ---
 
@@ -289,34 +289,34 @@ Add the shared output layer early so command workflows can target stable renderi
 
 ### Create shared formatter layer
 
-- [ ] Create `src/format/table.ts`
-- [ ] Create `src/format/json.ts`
-- [ ] Add shared formatting router or dispatch logic
-- [ ] Keep terminal and JSON formatting separate from command logic
-- [ ] Keep shared formatter files thin so later command workflows avoid heavy merge overlap
+- [x] Create `src/format/table.ts`
+- [x] Create `src/format/json.ts`
+- [x] Add shared formatting router or dispatch logic
+- [x] Keep terminal and JSON formatting separate from command logic
+- [x] Keep shared formatter files thin so later command workflows avoid heavy merge overlap
 
 ### Add global output support contracts
 
-- [ ] Define stable shared output mode types
-- [ ] Define the expected formatter call shape for commands
-- [ ] Ensure JSON output stays machine-readable
-- [ ] Ensure error output continues to be handled separately from success output
+- [x] Define stable shared output mode types
+- [x] Define the expected formatter call shape for commands
+- [x] Ensure JSON output stays machine-readable
+- [x] Ensure error output continues to be handled separately from success output
 
 ### Add tests
 
-- [ ] Add tests for formatter behavior
-- [ ] Add tests for JSON output stability where useful
+- [x] Add tests for formatter behavior
+- [x] Add tests for JSON output stability where useful
 
 ## Files to Create
 
-- [ ] `src/format/table.ts`
-- [ ] `src/format/json.ts`
+- [x] `src/format/table.ts`
+- [x] `src/format/json.ts`
 
 ## Files to Update
 
-- [ ] `src/api/types.ts`
-- [ ] `src/utils/errors.ts`
-- [ ] `test/normalize.test.ts`
+- [x] `src/api/types.ts`
+- [x] `src/utils/errors.ts`
+- [x] `test/normalize.test.ts`
 
 ---
 
@@ -330,37 +330,37 @@ Implement the SDK-backed data access layer and isolate raw Sui calls from comman
 
 ### Create reusable client layer
 
-- [ ] Create `src/api/client.ts`
-- [ ] Initialize Sui client creation logic
-- [ ] Support mainnet by default
-- [ ] Support `mainnet`, `testnet`, and `devnet`
-- [ ] Add one internal function per data retrieval concern instead of one large client module
-- [ ] Keep the shared client facade small so command workflows can stay mostly file-local
+- [x] Create `src/api/client.ts`
+- [x] Initialize Sui client creation logic
+- [x] Support mainnet by default
+- [x] Support `mainnet`, `testnet`, and `devnet`
+- [x] Add one internal function per data retrieval concern instead of one large client module
+- [x] Keep the shared client facade small so command workflows can stay mostly file-local
 
 ### Add entity data access helpers
 
-- [ ] Add address-oriented retrieval helpers
-- [ ] Add object-oriented retrieval helpers
-- [ ] Add transaction-oriented retrieval helpers
-- [ ] Add package-oriented retrieval helpers
+- [x] Add address-oriented retrieval helpers
+- [x] Add object-oriented retrieval helpers
+- [x] Add transaction-oriented retrieval helpers
+- [x] Add package-oriented retrieval helpers
 
 ### Add error translation
 
-- [ ] Convert SDK and network failures into readable CLI errors
-- [ ] Distinguish invalid input from RPC and network failures where possible
-- [ ] Keep malformed successful responses separate from generic provider failures
+- [x] Convert SDK and network failures into readable CLI errors
+- [x] Distinguish invalid input from RPC and network failures where possible
+- [x] Keep malformed successful responses separate from generic provider failures
 
 ## Files to Create
 
-- [ ] `src/api/client.ts`
+- [x] `src/api/client.ts`
 
 ## Files to Update
 
-- [ ] `src/api/types.ts`
-- [ ] `src/api/schemas.ts`
-- [ ] `src/api/normalize.ts`
-- [ ] `src/utils/errors.ts`
-- [ ] `src/constants/networks.ts`
+- [x] `src/api/types.ts`
+- [x] `src/api/schemas.ts`
+- [x] `src/api/normalize.ts`
+- [x] `src/utils/errors.ts`
+- [x] `src/constants/networks.ts`
 
 ---
 
@@ -374,36 +374,36 @@ Implement `sui-lens object <objectId>`.
 
 ### Add object command module
 
-- [ ] Create `src/commands/object.ts`
-- [ ] Validate object ID input
-- [ ] Consume shared command registration and formatter interfaces rather than reshaping them
+- [x] Create `src/commands/object.ts`
+- [x] Validate object ID input
+- [x] Consume shared command registration and formatter interfaces rather than reshaping them
 
 ### Add object command data flow
 
-- [ ] Fetch object details
-- [ ] Extract owner, type, version, and digest fields
-- [ ] Include storage rebate when available
-- [ ] Normalize object output shape
+- [x] Fetch object details
+- [x] Extract owner, type, version, and digest fields
+- [x] Include storage rebate when available
+- [x] Normalize object output shape
 
 ### Add rendering support through shared formatters
 
-- [ ] Route terminal output through shared formatter APIs
-- [ ] Route JSON output through shared formatter APIs
+- [x] Route terminal output through shared formatter APIs
+- [x] Route JSON output through shared formatter APIs
 
 ### Add tests
 
-- [ ] Add object command unit tests
-- [ ] Add fixture data for object command scenarios
+- [x] Add object command unit tests
+- [x] Add fixture data for object command scenarios
 
 ## Files to Create
 
-- [ ] `src/commands/object.ts`
-- [ ] `test/object.test.ts`
-- [ ] `test/fixtures/object.json`
+- [x] `src/commands/object.ts`
+- [x] `test/object.test.ts`
+- [x] `test/fixtures/object.json`
 
 ## Files to Update Sparingly
 
-- [ ] shared files only if the agreed contracts are missing a truly necessary hook
+- [x] shared files only if the agreed contracts are missing a truly necessary hook
 
 ---
 
@@ -417,36 +417,36 @@ Implement `sui-lens package <packageId>`.
 
 ### Add package command module
 
-- [ ] Create `src/commands/package.ts`
-- [ ] Validate package ID input
-- [ ] Consume shared command registration and formatter interfaces rather than reshaping them
+- [x] Create `src/commands/package.ts`
+- [x] Validate package ID input
+- [x] Consume shared command registration and formatter interfaces rather than reshaping them
 
 ### Add package command data flow
 
-- [ ] Fetch package object details
-- [ ] Extract module names
-- [ ] Extract upgrade-related metadata where available
-- [ ] Normalize package output shape
+- [x] Fetch package object details
+- [x] Extract module names
+- [x] Extract upgrade-related metadata where available
+- [x] Normalize package output shape
 
 ### Add rendering support through shared formatters
 
-- [ ] Route terminal output through shared formatter APIs
-- [ ] Route JSON output through shared formatter APIs
+- [x] Route terminal output through shared formatter APIs
+- [x] Route JSON output through shared formatter APIs
 
 ### Add tests
 
-- [ ] Add package command unit tests
-- [ ] Add fixture data for package command scenarios
+- [x] Add package command unit tests
+- [x] Add fixture data for package command scenarios
 
 ## Files to Create
 
-- [ ] `src/commands/package.ts`
-- [ ] `test/package.test.ts`
-- [ ] `test/fixtures/package.json`
+- [x] `src/commands/package.ts`
+- [x] `test/package.test.ts`
+- [x] `test/fixtures/package.json`
 
 ## Files to Update Sparingly
 
-- [ ] shared files only if the agreed contracts are missing a truly necessary hook
+- [x] shared files only if the agreed contracts are missing a truly necessary hook
 
 ---
 
@@ -460,36 +460,36 @@ Implement `sui-lens address <address>`.
 
 ### Add address command module
 
-- [ ] Create `src/commands/address.ts`
-- [ ] Validate address input
-- [ ] Consume shared command registration and formatter interfaces rather than reshaping them
+- [x] Create `src/commands/address.ts`
+- [x] Validate address input
+- [x] Consume shared command registration and formatter interfaces rather than reshaping them
 
 ### Add address command data flow
 
-- [ ] Fetch SUI balance data
-- [ ] Fetch owned object data
-- [ ] Fetch recent transaction data if included in the first version
-- [ ] Normalize command result into internal output shape
+- [x] Fetch SUI balance data
+- [x] Fetch owned object data
+- [x] Fetch recent transaction data if included in the first version
+- [x] Normalize command result into internal output shape
 
 ### Add rendering support through shared formatters
 
-- [ ] Route terminal output through shared formatter APIs
-- [ ] Route JSON output through shared formatter APIs
+- [x] Route terminal output through shared formatter APIs
+- [x] Route JSON output through shared formatter APIs
 
 ### Add tests
 
-- [ ] Add address command unit tests
-- [ ] Add fixture data for address command scenarios
+- [x] Add address command unit tests
+- [x] Add fixture data for address command scenarios
 
 ## Files to Create
 
-- [ ] `src/commands/address.ts`
-- [ ] `test/address.test.ts`
-- [ ] `test/fixtures/address.json`
+- [x] `src/commands/address.ts`
+- [x] `test/address.test.ts`
+- [x] `test/fixtures/address.json`
 
 ## Files to Update Sparingly
 
-- [ ] shared files only if the agreed contracts are missing a truly necessary hook
+- [x] shared files only if the agreed contracts are missing a truly necessary hook
 
 ---
 
@@ -548,9 +548,9 @@ Make the CLI feel polished while keeping shared CLI changes concentrated late.
 
 ### Add global output flags
 
-- [ ] Support `--json`
-- [ ] Support `--format table|json`
-- [ ] Ensure JSON output is machine-readable and clean on stdout
+- [x] Support `--json`
+- [x] Support `--format table|json`
+- [x] Ensure JSON output is machine-readable and clean on stdout
 - [ ] Ensure user-facing errors go to stderr
 
 ### Improve CLI UX
@@ -583,23 +583,23 @@ Make the CLI feel real, installable, and stable after the core command workflows
 ### Add smoke tests
 
 - [ ] Create CLI smoke test file
-- [ ] Test help/version output
+- [x] Test help/version output
 - [ ] Test at least one command end to end
-- [ ] Test JSON output mode
+- [x] Test JSON output mode
 
 ### Validate installability
 
-- [ ] Verify built CLI can be run directly
+- [x] Verify built CLI can be run directly
 - [ ] Verify local link/install flow works
 - [ ] Verify package metadata is accurate for CLI usage
 
 ### Run the quality gate
 
-- [ ] Run format check
-- [ ] Run lint
-- [ ] Run typecheck
-- [ ] Run tests
-- [ ] Run build
+- [x] Run format check
+- [x] Run lint
+- [x] Run typecheck
+- [x] Run tests
+- [x] Run build
 
 ## Files to Create
 
@@ -617,16 +617,16 @@ Make the CLI feel real, installable, and stable after the core command workflows
 
 # Release Checklist
 
-- [ ] Repository is ready for CLI development
-- [ ] CLI entrypoint exists and is executable
-- [ ] Sui SDK integration is isolated behind internal modules
-- [ ] Address command works
-- [ ] Object command works
+- [x] Repository is ready for CLI development
+- [x] CLI entrypoint exists and is executable
+- [x] Sui SDK integration is isolated behind internal modules
+- [x] Address command works
+- [x] Object command works
 - [ ] Transaction command works
-- [ ] Package command works
-- [ ] Table output is readable
-- [ ] JSON output is stable
+- [x] Package command works
+- [x] Table output is readable
+- [x] JSON output is stable
 - [ ] Errors are understandable
 - [ ] Smoke tests pass
-- [ ] Build, lint, typecheck, and tests all pass
+- [x] Build, lint, typecheck, and tests all pass
 - [ ] README accurately describes the tool
