@@ -1,7 +1,8 @@
-import type { SupportedNetwork } from "../constants/networks.js";
-import type { PackageClientData } from "./client.js";
 import type { SuiObjectResponse } from "@mysten/sui/jsonRpc";
+
+import type { SupportedNetwork } from "../constants/networks.js";
 import { CliError, EXIT_CODES } from "../utils/errors.js";
+import type { PackageClientData } from "./client.js";
 import {
   addressSummarySchema,
   objectSummarySchema,
