@@ -1,0 +1,28 @@
+{
+  "modules": {
+    "router": {
+      "address": "0x2",
+      "exposedFunctions": {},
+      "fileFormatVersion": 6,
+      "friends": [],
+      "name": "router",
+      "structs": {}
+    },
+    "vault": {
+      "address": "0x2",
+      "exposedFunctions": {},
+      "fileFormatVersion": 6,
+      "friends": [],
+      "name": "vault",
+      "structs": {}
+    }
+  },
+  "object": {
+    "data": {
+      "digest": "digest-1",
+      "objectId": "0xface",
+      "type": "package",
+      "version": "3"
+    }
+  }
+}
