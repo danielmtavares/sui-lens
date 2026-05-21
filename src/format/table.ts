@@ -54,6 +54,7 @@ function formatPackageSummary(summary: PackageSummary): string {
     formatKeyValue("Network", summary.network),
     formatKeyValue("Modules", summary.modules.length === 0 ? "none" : summary.modules.join(", ")),
     formatKeyValue("Version", summary.version ?? "unknown"),
+    formatKeyValue("Upgrade Cap", summary.upgradeCapId ?? "unknown"),
   ]);
 }
 
