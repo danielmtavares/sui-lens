@@ -1,3 +1,5 @@
+import type { SupportedNetwork } from "../constants/networks.js";
+import type { PackageClientData } from "./client.js";
 import {
   addressSummarySchema,
   objectSummarySchema,
@@ -27,6 +29,20 @@ export function normalizeTransactionSummary(input: unknown): TransactionSummary 
 
 export function normalizePackageSummary(input: unknown): PackageSummary {
   return packageSummarySchema.parse(input);
+}
+
+export function normalizePackageResponse(
+  input: PackageClientData,
+  network: SupportedNetwork,
+): PackageSummary {
+  return normalizePackageSummary({
+    kind: "package",
+    modules: Object.keys(input.modules).toSorted(),
+    network,
+    packageId: input.object.data?.objectId ?? "",
+    upgradeCapId: null,
+    version: input.object.data?.version ?? null,
+  });
 }
 
 export function normalizeSummary(input: unknown): SuiSummary {
