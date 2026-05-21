@@ -41,6 +41,10 @@ export function renderPlaceholderCommand({
   options,
 }: PlaceholderRenderInput): void {
   const summary = createPlaceholderSummary(kind, identifier, options.network ?? DEFAULT_NETWORK);
+  renderSummary(summary, options);
+}
+
+export function renderSummary(summary: SuiSummary, options: SharedCommandOptions): void {
   const format = resolveFormat(options);
 
   process.stdout.write(

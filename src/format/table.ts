@@ -44,6 +44,8 @@ function formatObjectSummary(summary: ObjectSummary): string {
     formatKeyValue("Type", summary.type ?? "unknown"),
     formatKeyValue("Version", summary.version ?? "unknown"),
     formatKeyValue("Owner", summary.owner ?? "unknown"),
+    formatKeyValue("Digest", summary.digest ?? "unknown"),
+    formatKeyValue("Storage Rebate", summary.storageRebate ?? "unknown"),
   ]);
 }
 
