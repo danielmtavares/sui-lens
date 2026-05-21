@@ -503,38 +503,38 @@ Implement `sui-lens tx <digest>`.
 
 ### Add transaction command module
 
-- [ ] Create `src/commands/tx.ts`
-- [ ] Validate transaction digest input
-- [ ] Consume shared command registration and formatter interfaces rather than reshaping them
+- [x] Create `src/commands/tx.ts`
+- [x] Validate transaction digest input
+- [x] Consume shared command registration and formatter interfaces rather than reshaping them
 
 ### Add transaction command data flow
 
-- [ ] Fetch transaction details
-- [ ] Extract execution status
-- [ ] Extract sender and timestamp
-- [ ] Extract gas usage summary
-- [ ] Extract changed objects count or comparable effect summary
-- [ ] Normalize transaction output shape
+- [x] Fetch transaction details
+- [x] Extract execution status
+- [x] Extract sender and timestamp
+- [x] Extract gas usage summary
+- [x] Extract changed objects count or comparable effect summary
+- [x] Normalize transaction output shape
 
 ### Add rendering support through shared formatters
 
-- [ ] Route terminal output through shared formatter APIs
-- [ ] Route JSON output through shared formatter APIs
+- [x] Route terminal output through shared formatter APIs
+- [x] Route JSON output through shared formatter APIs
 
 ### Add tests
 
-- [ ] Add transaction command unit tests
-- [ ] Add fixture data for transaction command scenarios
+- [x] Add transaction command unit tests
+- [x] Add fixture data for transaction command scenarios
 
 ## Files to Create
 
-- [ ] `src/commands/tx.ts`
-- [ ] `test/tx.test.ts`
-- [ ] `test/fixtures/tx.json`
+- [x] `src/commands/tx.ts`
+- [x] `test/tx.test.ts`
+- [x] `test/fixtures/tx.json`
 
 ## Files to Update Sparingly
 
-- [ ] shared files only if the agreed contracts are missing a truly necessary hook
+- [x] shared files only if the agreed contracts are missing a truly necessary hook
 
 ---
 
@@ -622,7 +622,7 @@ Make the CLI feel real, installable, and stable after the core command workflows
 - [x] Sui SDK integration is isolated behind internal modules
 - [x] Address command works
 - [x] Object command works
-- [ ] Transaction command works
+- [x] Transaction command works
 - [x] Package command works
 - [x] Table output is readable
 - [x] JSON output is stable

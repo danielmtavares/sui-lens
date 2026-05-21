@@ -1,0 +1,74 @@
+{
+  "digest": "4jA6v7fLQx6oA2KpN8rTsW1b",
+  "timestampMs": "1716306000000",
+  "effects": {
+    "messageVersion": "v1",
+    "status": {
+      "status": "success"
+    },
+    "executedEpoch": "420",
+    "transactionDigest": "4jA6v7fLQx6oA2KpN8rTsW1b",
+    "gasUsed": {
+      "computationCost": "1000",
+      "storageCost": "200",
+      "storageRebate": "50",
+      "nonRefundableStorageFee": "0"
+    },
+    "gasObject": {
+      "owner": {
+        "AddressOwner": "0xabc"
+      },
+      "reference": {
+        "objectId": "0xgas",
+        "version": "9",
+        "digest": "GasDigest1"
+      }
+    }
+  },
+  "transaction": {
+    "data": {
+      "messageVersion": "v1",
+      "sender": "0xabc",
+      "gasData": {
+        "budget": "5000000",
+        "owner": "0xabc",
+        "payment": [
+          {
+            "objectId": "0xcoin",
+            "version": "3",
+            "digest": "CoinDigest1"
+          }
+        ],
+        "price": "1000"
+      },
+      "transaction": {
+        "kind": "ProgrammableTransaction",
+        "inputs": [],
+        "transactions": [
+          {
+            "MoveCall": {
+              "package": "0x2",
+              "module": "sui",
+              "function": "transfer"
+            }
+          }
+        ]
+      }
+    },
+    "txSignatures": []
+  },
+  "objectChanges": [
+    {
+      "type": "mutated"
+    },
+    {
+      "type": "mutated"
+    },
+    {
+      "type": "created"
+    },
+    {
+      "type": "created"
+    }
+  ]
+}
