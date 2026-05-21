@@ -10,6 +10,9 @@
   ],
   "license": "MIT",
   "author": "Daniel Tavares",
+  "bin": {
+    "sui-lens": "./dist/cli.js"
+  },
   "files": [
     "dist",
     "LICENSE",
@@ -30,16 +33,22 @@
     "audit:prod": "pnpm audit --prod --audit-level high",
     "build": "tsup --config tsup.config.ts",
     "check": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm test -- --run && pnpm build",
-    "dev": "node --import tsx src/index.ts",
+    "dev": "node --import tsx src/cli.ts",
     "format": "oxfmt \"*.{json,js,ts}\" \"src/**/*.{ts,json}\" \"test/**/*.{ts,json}\" \".github/**/*.{md,yml,yaml}\"",
     "format:check": "oxfmt --check \"*.{json,js,ts}\" \"src/**/*.{ts,json}\" \"test/**/*.{ts,json}\" \".github/**/*.{md,yml,yaml}\"",
     "lint": "oxlint . --import-plugin --promise-plugin --vitest-plugin --deny-warnings",
     "lint:fix": "oxlint . --import-plugin --promise-plugin --vitest-plugin --fix",
     "prepare": "git config core.hooksPath .githooks",
     "prepack": "pnpm build",
-    "start": "node dist/index.js",
+    "start": "node dist/cli.js",
     "test": "vitest",
     "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@mysten/sui": "latest",
+    "chalk": "latest",
+    "commander": "latest",
+    "zod": "latest"
   },
   "devDependencies": {
     "@types/node": "^25.8.0",
