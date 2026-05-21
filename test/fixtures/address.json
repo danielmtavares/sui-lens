@@ -1,0 +1,42 @@
+{
+  "balance": {
+    "coinObjectCount": 2,
+    "coinType": "0x2::sui::SUI",
+    "lockedBalance": {},
+    "totalBalance": "1234000000"
+  },
+  "ownedObjects": {
+    "data": [
+      {
+        "data": {
+          "digest": "digest-1",
+          "objectId": "0xaaa",
+          "type": "0x2::coin::Coin<0x2::sui::SUI>",
+          "version": "1"
+        }
+      },
+      {
+        "data": {
+          "digest": "digest-2",
+          "objectId": "0xbbb",
+          "type": "0x2::example::Badge",
+          "version": "2"
+        }
+      }
+    ],
+    "hasNextPage": false,
+    "nextCursor": null
+  },
+  "recentTransactions": {
+    "data": [
+      {
+        "digest": "tx-1"
+      },
+      {
+        "digest": "tx-2"
+      }
+    ],
+    "hasNextPage": false,
+    "nextCursor": null
+  }
+}
