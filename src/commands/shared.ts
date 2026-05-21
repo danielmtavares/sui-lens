@@ -1,12 +1,17 @@
 import { Option, type Command } from "commander";
 
+import type { OutputFormat, SuiSummary } from "../api/types.js";
+import { DEFAULT_NETWORK, type SupportedNetwork } from "../constants/networks.js";
+import { formatSummaryJson } from "../format/json.js";
+import { formatSummaryTable } from "../format/table.js";
+
 const NETWORK_CHOICES = ["mainnet", "testnet", "devnet"] as const;
 const FORMAT_CHOICES = ["table", "json"] as const;
 
-type SharedCommandOptions = {
-  format?: (typeof FORMAT_CHOICES)[number];
+export type SharedCommandOptions = {
+  format?: OutputFormat;
   json?: boolean;
-  network?: (typeof NETWORK_CHOICES)[number];
+  network?: SupportedNetwork;
 };
 
 type PlaceholderRenderInput = {
@@ -35,20 +40,82 @@ export function renderPlaceholderCommand({
   kind,
   options,
 }: PlaceholderRenderInput): void {
-  console.log(
-    [
-      `${kind} support is scaffolded but not implemented yet.`,
-      `identifier: ${identifier}`,
-      `network: ${options.network ?? "mainnet"}`,
-      `format: ${resolveFormat(options)}`,
-    ].join("\n"),
+  const summary = createPlaceholderSummary(kind, identifier, options.network ?? DEFAULT_NETWORK);
+  const format = resolveFormat(options);
+
+  process.stdout.write(
+    format === "json" ? formatSummaryJson(summary) : formatSummaryTable(summary),
   );
 }
 
-function resolveFormat(options: SharedCommandOptions): (typeof FORMAT_CHOICES)[number] {
+function resolveFormat(options: SharedCommandOptions): OutputFormat {
   if (options.json === true) {
     return "json";
   }
 
   return options.format ?? "table";
+}
+
+function createPlaceholderSummary(
+  kind: SuiSummary["kind"],
+  identifier: string,
+  network: SupportedNetwork,
+): SuiSummary {
+  switch (kind) {
+    case "address":
+      return {
+        address: identifier,
+        balance: {
+          mist: "0",
+          sui: "0",
+        },
+        kind,
+        network,
+        ownedObjects: {
+          count: 0,
+          items: [],
+        },
+        recentTransactions: {
+          count: 0,
+          digests: [],
+        },
+      };
+    case "object":
+      return {
+        digest: null,
+        kind,
+        network,
+        objectId: identifier,
+        owner: null,
+        storageRebate: null,
+        type: null,
+        version: null,
+      };
+    case "package":
+      return {
+        kind,
+        modules: [],
+        network,
+        packageId: identifier,
+        upgradeCapId: null,
+        version: null,
+      };
+    case "tx":
+      return {
+        changedObjectsCount: 0,
+        digest: identifier,
+        gas: {
+          budget: null,
+          owner: null,
+          paymentCount: null,
+          total: null,
+        },
+        kind,
+        network,
+        sender: null,
+        status: "unknown",
+        summary: null,
+        timestamp: null,
+      };
+  }
 }
