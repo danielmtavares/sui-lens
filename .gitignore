@@ -30,3 +30,6 @@ yarn-error.log*
 
 # Editor backup files
 *~
+
+# macOS metadata
+.DS_Store
