@@ -4,7 +4,7 @@ A CLI-first tool for inspecting Sui addresses, objects, transactions, and packag
 
 `sui-lens` is intended to feel like a real developer utility: small, fast, typed, scriptable, and easy to install. Instead of jumping between explorer pages, you can inspect common Sui identifiers directly from your shell and choose either human-readable output or JSON for piping into other tools.
 
-This repository will be used as the starting point for building the CLI.
+This repository now includes the executable CLI foundation and command skeleton. The data-fetching and formatting layers are still being built.
 
 ## Scope
 
@@ -36,7 +36,7 @@ The goals are to demonstrate:
 
 ## Status
 
-The repository is the starting point for the implementation. The next step is getting it ready for real CLI development by adding a dedicated CLI entrypoint, command skeleton, package wiring for executable usage, and the internal folders needed for command, API, formatting, and utility code.
+The repository now has a dedicated CLI entrypoint, executable package wiring, and placeholder command modules for the planned command surface. The next step is implementing the shared contracts, client layer, formatters, and real command behavior.
 
 ## Requirements
 
@@ -47,12 +47,27 @@ The repository is the starting point for the implementation. The next step is ge
 
 ```bash
 pnpm install
-pnpm dev
+pnpm dev -- --help
+pnpm start -- --help
 pnpm test -- --run
 pnpm build
 pnpm format
 pnpm check
 ```
+
+## Current CLI foundation
+
+The command skeleton is available now:
+
+```bash
+sui-lens --help
+sui-lens address 0x...
+sui-lens object 0x...
+sui-lens tx <digest>
+sui-lens package 0x...
+```
+
+At this stage these commands are placeholders that prove the CLI packaging, command registration, and shared option structure.
 
 ## Planned CLI Usage
 
