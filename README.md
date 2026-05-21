@@ -1,6 +1,6 @@
 # sui-lens
 
-A CLI-first TypeScript tool for inspecting Sui addresses, objects, transactions, and packages from the terminal.
+A CLI-first tool for inspecting Sui addresses, objects, transactions, and packages from the terminal.
 
 `sui-lens` is intended to feel like a real developer utility: small, fast, typed, scriptable, and easy to install. Instead of jumping between explorer pages, you can inspect common Sui identifiers directly from your shell and choose either human-readable output or JSON for piping into other tools.
 
