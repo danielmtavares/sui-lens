@@ -582,16 +582,16 @@ Make the CLI feel real, installable, and stable after the core command workflows
 
 ### Add smoke tests
 
-- [ ] Create CLI smoke test file
+- [x] Create CLI smoke test file
 - [x] Test help/version output
-- [ ] Test at least one command end to end
+- [x] Test at least one command end to end
 - [x] Test JSON output mode
 
 ### Validate installability
 
 - [x] Verify built CLI can be run directly
-- [ ] Verify local link/install flow works
-- [ ] Verify package metadata is accurate for CLI usage
+- [x] Verify local link/install flow works
+- [x] Verify package metadata is accurate for CLI usage
 
 ### Run the quality gate
 
@@ -603,15 +603,13 @@ Make the CLI feel real, installable, and stable after the core command workflows
 
 ## Files to Create
 
-- [ ] `test/cli-smoke.test.ts`
+- [x] `test/cli-smoke.test.ts`
 
 ## Files to Update
 
 - [x] `src/cli.ts`
 - [x] `package.json`
 - [x] `README.md`
-- [ ] `tsup.config.ts`
-- [ ] `vitest.config.ts`
 
 ---
 

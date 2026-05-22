@@ -8,8 +8,16 @@
     "sui-lens",
     "typescript"
   ],
+  "homepage": "https://github.com/danielmtavares/sui-lens#readme",
+  "bugs": {
+    "url": "https://github.com/danielmtavares/sui-lens/issues"
+  },
   "license": "MIT",
   "author": "Daniel Tavares",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danielmtavares/sui-lens.git"
+  },
   "bin": {
     "sui-lens": "./dist/cli.js"
   },
@@ -45,10 +53,10 @@
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {
-    "@mysten/sui": "latest",
-    "chalk": "latest",
-    "commander": "latest",
-    "zod": "latest"
+    "@mysten/sui": "2.17.0",
+    "chalk": "5.6.2",
+    "commander": "14.0.3",
+    "zod": "4.4.3"
   },
   "devDependencies": {
     "@types/node": "^25.8.0",

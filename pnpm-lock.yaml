@@ -9,16 +9,16 @@ importers:
   .:
     dependencies:
       '@mysten/sui':
-        specifier: latest
+        specifier: 2.17.0
         version: 2.17.0(typescript@6.0.3)
       chalk:
-        specifier: latest
+        specifier: 5.6.2
         version: 5.6.2
       commander:
-        specifier: latest
+        specifier: 14.0.3
         version: 14.0.3
       zod:
-        specifier: latest
+        specifier: 4.4.3
         version: 4.4.3
     devDependencies:
       '@types/node':
