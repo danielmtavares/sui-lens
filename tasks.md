@@ -172,7 +172,7 @@ Adapt the existing project into a proper CLI foundation so feature work can begi
 - [x] Review `tsconfig.json` and keep strict settings intact
 - [x] Review `tsup.config.ts` and identify build changes needed for an executable CLI
 - [x] Review the current `src/index.ts` and decide what remains as library/public entry vs what moves to CLI bootstrapping
-- [ ] Review the current README and prepare it for product-focused documentation later
+- [x] Review the current README and prepare it for product-focused documentation later
 
 ### Add CLI entrypoint and command skeleton
 
@@ -190,7 +190,6 @@ Adapt the existing project into a proper CLI foundation so feature work can begi
 - [x] Add `@mysten/sui`
 - [x] Add `commander`
 - [x] Add `zod`
-- [x] Add `chalk`
 
 ### Update package and build configuration
 
@@ -219,7 +218,7 @@ Adapt the existing project into a proper CLI foundation so feature work can begi
 - [x] `package.json`
 - [x] `tsup.config.ts`
 - [x] `src/index.ts`
-- [ ] `README.md`
+- [x] `README.md`
 
 ---
 
@@ -624,7 +623,7 @@ Make the CLI feel real, installable, and stable after the core command workflows
 - [x] Package command works
 - [x] Table output is readable
 - [x] JSON output is stable
-- [ ] Errors are understandable
-- [ ] Smoke tests pass
+- [x] Errors are understandable
+- [x] Smoke tests pass
 - [x] Build, lint, typecheck, and tests all pass
-- [ ] README accurately describes the tool
+- [x] README accurately describes the tool
