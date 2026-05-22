@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 
+import { CliError, EXIT_CODES } from "../src/utils/errors.js";
 import {
   assertObjectId,
   assertPackageId,
@@ -19,7 +20,17 @@ describe("ids", () => {
 
   it("rejects malformed hex IDs", () => {
     expect(isSuiHexId("1234abcd")).toBe(false);
-    expect(() => assertSuiAddress("not-an-id")).toThrow("Invalid Sui address.");
+    const invalidAddressError = getThrownError(() => assertSuiAddress("not-an-id"));
+
+    expect(invalidAddressError).toBeInstanceOf(CliError);
+    expect(invalidAddressError).toMatchObject({
+      code: EXIT_CODES.INVALID_INPUT,
+      details: {
+        expected: "0x-prefixed hex string with 1 to 64 hex characters",
+        received: "not-an-id",
+      },
+      message: "Invalid Sui address.",
+    });
   });
 
   it("accepts transaction digests with base58 characters", () => {
@@ -31,8 +42,16 @@ describe("ids", () => {
 
   it("rejects malformed transaction digests", () => {
     expect(isTransactionDigest("0x1234")).toBe(false);
-    expect(() => assertTransactionDigest("not-a-digest")).toThrow(
-      "Invalid Sui transaction digest.",
-    );
+    expect(() => assertTransactionDigest("not-a-digest")).toThrowError(CliError);
   });
 });
+
+function getThrownError(callback: () => unknown): unknown {
+  try {
+    callback();
+  } catch (error) {
+    return error;
+  }
+
+  throw new Error("Expected callback to throw.");
+}

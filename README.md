@@ -4,7 +4,7 @@ A CLI-first tool for inspecting Sui addresses, objects, transactions, and packag
 
 `sui-lens` is intended to feel like a real developer utility: small, fast, typed, scriptable, and easy to install. Instead of jumping between explorer pages, you can inspect common Sui identifiers directly from your shell and choose either human-readable output or JSON for piping into other tools.
 
-This repository now includes the executable CLI foundation and command skeleton. The data-fetching and formatting layers are still being built.
+This repository now includes a working CLI with real RPC-backed commands for addresses, objects, transactions, and packages.
 
 ## Scope
 
@@ -36,7 +36,16 @@ The goals are to demonstrate:
 
 ## Status
 
-The repository now has a dedicated CLI entrypoint, executable package wiring, and placeholder command modules for the planned command surface. The next step is implementing the shared contracts, client layer, formatters, and real command behavior.
+The CLI command surface is implemented and tested:
+
+- address lookup
+- object lookup
+- transaction lookup
+- package lookup
+- table and JSON output
+- network selection for `mainnet`, `testnet`, and `devnet`
+
+The remaining work is focused on polish, installability, smoke coverage, and keeping the docs aligned with the shipped behavior.
 
 ## Requirements
 
@@ -55,9 +64,9 @@ pnpm format
 pnpm check
 ```
 
-## Current CLI foundation
+## Current CLI
 
-The command skeleton is available now:
+The CLI is available now:
 
 ```bash
 sui-lens --help
@@ -67,9 +76,11 @@ sui-lens tx <digest>
 sui-lens package 0x...
 ```
 
-At this stage these commands are placeholders that prove the CLI packaging, command registration, and shared option structure.
+These commands fetch live data from the configured public Sui RPC network.
 
-## Planned CLI Usage
+User-facing errors are written to stderr and the CLI sets non-zero exit codes for automation and scripting.
+
+## CLI Usage
 
 ### Address
 
@@ -79,7 +90,7 @@ sui-lens address 0x... --json
 sui-lens address 0x... --network testnet
 ```
 
-Expected summary shape:
+Current summary shape:
 
 - address
 - SUI balance summary
@@ -94,7 +105,7 @@ sui-lens object 0x...
 sui-lens object 0x... --json
 ```
 
-Expected summary shape:
+Current summary shape:
 
 - object ID
 - type
@@ -111,7 +122,7 @@ sui-lens tx <digest>
 sui-lens tx <digest> --json
 ```
 
-Expected summary shape:
+Current summary shape:
 
 - transaction digest
 - execution status
@@ -128,7 +139,7 @@ sui-lens package 0x...
 sui-lens package 0x... --json
 ```
 
-Expected summary shape:
+Current summary shape:
 
 - package ID
 - module names
@@ -167,7 +178,7 @@ sui-lens address 0x... --json
 }
 ```
 
-## Planned Project Structure
+## Project Structure
 
 ```text
 sui-lens/

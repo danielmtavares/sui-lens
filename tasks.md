@@ -551,24 +551,24 @@ Make the CLI feel polished while keeping shared CLI changes concentrated late.
 - [x] Support `--json`
 - [x] Support `--format table|json`
 - [x] Ensure JSON output is machine-readable and clean on stdout
-- [ ] Ensure user-facing errors go to stderr
+ - [x] Ensure user-facing errors go to stderr
 
 ### Improve CLI UX
 
-- [ ] Improve help text
-- [ ] Add command examples to help output
-- [ ] Improve validation messages
-- [ ] Ensure error output stays readable
+ - [x] Improve help text
+ - [x] Add command examples to help output
+ - [x] Improve validation messages
+ - [x] Ensure error output stays readable
 
 ### Add tests
 
-- [ ] Add focused CLI behavior tests where useful
+ - [x] Add focused CLI behavior tests where useful
 
 ## Files to Update
 
-- [ ] `src/cli.ts`
-- [ ] `src/utils/errors.ts`
-- [ ] `README.md`
+ - [x] `src/cli.ts`
+ - [x] `src/utils/errors.ts`
+ - [x] `README.md`
 
 ---
 
@@ -607,9 +607,9 @@ Make the CLI feel real, installable, and stable after the core command workflows
 
 ## Files to Update
 
-- [ ] `src/cli.ts`
-- [ ] `package.json`
-- [ ] `README.md`
+- [x] `src/cli.ts`
+- [x] `package.json`
+- [x] `README.md`
 - [ ] `tsup.config.ts`
 - [ ] `vitest.config.ts`
 
