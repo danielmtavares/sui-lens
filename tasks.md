@@ -590,8 +590,8 @@ Make the CLI feel real, installable, and stable after the core command workflows
 ### Validate installability
 
 - [x] Verify built CLI can be run directly
-- [ ] Verify local link/install flow works
-- [ ] Verify package metadata is accurate for CLI usage
+- [x] Verify local link/install flow works
+- [x] Verify package metadata is accurate for CLI usage
 
 ### Run the quality gate
 
@@ -610,8 +610,6 @@ Make the CLI feel real, installable, and stable after the core command workflows
 - [x] `src/cli.ts`
 - [x] `package.json`
 - [x] `README.md`
-- [ ] `tsup.config.ts`
-- [ ] `vitest.config.ts`
 
 ---
 
