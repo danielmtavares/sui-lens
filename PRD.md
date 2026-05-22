@@ -3,7 +3,7 @@
 
 **Version:** 0.1  
 **Status:** Implemented core scope  
-**Author:** Daniel
+**Author:** Daniel Tavares
 
 ---
 
