@@ -1,7 +1,7 @@
 {
   "name": "sui-lens",
   "version": "0.0.1",
-  "description": "A TypeScript project scaffold for sui-lens.",
+  "description": "CLI for inspecting Sui addresses, objects, transactions, and packages.",
   "keywords": [
     "node",
     "sui",

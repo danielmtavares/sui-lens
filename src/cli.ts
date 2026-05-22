@@ -2,7 +2,7 @@
 
 import { pathToFileURL } from "node:url";
 
-import { Command } from "commander";
+import { Command, CommanderError } from "commander";
 
 import packageJson from "../package.json" with { type: "json" };
 import { registerCommands } from "./commands/index.js";
@@ -17,6 +17,7 @@ export function createCli(): Command {
       "Inspect Sui addresses, objects, transactions, and packages from the terminal.\n\nExamples:\n  sui-lens address 0x... --format table\n  sui-lens tx <digest> --json\n  sui-lens package 0x... --network testnet",
     )
     .version(packageJson.version)
+    .exitOverride()
     .showHelpAfterError()
     .showSuggestionAfterError();
 
@@ -29,6 +30,11 @@ export async function runCli(argv: readonly string[] = process.argv): Promise<vo
   try {
     await createCli().parseAsync(argv);
   } catch (err) {
+    if (err instanceof CommanderError) {
+      process.exitCode = err.exitCode;
+      return;
+    }
+
     process.exitCode = reportErrorToStderr(err);
   }
 }
