@@ -33,3 +33,5 @@ yarn-error.log*
 
 # macOS metadata
 .DS_Store
+
+.codex/
