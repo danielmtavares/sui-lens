@@ -582,9 +582,9 @@ Make the CLI feel real, installable, and stable after the core command workflows
 
 ### Add smoke tests
 
-- [ ] Create CLI smoke test file
+- [x] Create CLI smoke test file
 - [x] Test help/version output
-- [ ] Test at least one command end to end
+- [x] Test at least one command end to end
 - [x] Test JSON output mode
 
 ### Validate installability
@@ -603,7 +603,7 @@ Make the CLI feel real, installable, and stable after the core command workflows
 
 ## Files to Create
 
-- [ ] `test/cli-smoke.test.ts`
+- [x] `test/cli-smoke.test.ts`
 
 ## Files to Update
 
