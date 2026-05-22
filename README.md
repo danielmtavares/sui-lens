@@ -10,14 +10,14 @@ Built with Codex.
 
 ## Scope
 
-The planned command surface is:
+The command surface is:
 
 - `sui-lens address <address>`
 - `sui-lens object <objectId>`
 - `sui-lens tx <digest>`
 - `sui-lens package <packageId>`
 
-Planned output and CLI behavior:
+Supported output and CLI behavior:
 
 - readable terminal output by default
 - `--json` output for scripting
@@ -47,7 +47,7 @@ The CLI command surface is implemented and tested:
 - table and JSON output
 - network selection for `mainnet`, `testnet`, and `devnet`
 
-The remaining work is focused on polish, installability, smoke coverage, and keeping the docs aligned with the shipped behavior.
+The core CLI scope is implemented, packaged, and validated through the repository quality gate and installability checks.
 
 ## Requirements
 
@@ -197,7 +197,7 @@ sui-lens/
   .githooks/
 ```
 
-Planned responsibilities:
+Current responsibilities:
 
 - `src/api/` — Sui SDK access and response normalization
 - `src/commands/` — per-command orchestration

@@ -1,8 +1,8 @@
 # Architecture
 
-This diagram shows the planned architecture for `sui-lens` based on the current PRD and task list.
+This diagram shows the implemented architecture for `sui-lens` based on the current PRD and task list.
 
-It reflects the intended flow from CLI input to command handling, Sui SDK access, normalization, formatting, and final terminal or JSON output.
+It reflects the current flow from CLI input to command handling, Sui SDK access, normalization, formatting, and final terminal or JSON output.
 
 ```mermaid
 flowchart TB

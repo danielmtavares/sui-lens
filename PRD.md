@@ -2,7 +2,7 @@
 ## `sui-lens`
 
 **Version:** 0.1  
-**Status:** Draft  
+**Status:** Implemented core scope  
 **Author:** Daniel
 
 ---
@@ -13,7 +13,7 @@
 
 The goal is to accept a Sui identifier and return a concise, readable summary in terminal output or machine-readable JSON. The tool should feel like a real developer utility rather than a demo app.
 
-The existing repository will be used as the starting point for the project. Before feature work begins, the repo needs to be adapted into a real installable CLI foundation with a dedicated entrypoint, command structure, Sui SDK integration, and output formatting layers.
+The existing repository was used as the starting point for the project and has now been adapted into a real installable CLI with a dedicated entrypoint, command structure, Sui SDK integration, and output formatting layers.
 
 ---
 
@@ -50,7 +50,7 @@ The project should also demonstrate:
 
 ## 4. Requirements to Get the Repo Ready for CLI Development
 
-Before the core feature work starts, the project needs to be prepared for CLI development.
+This section records the preparation work that was required to make the repository ready for CLI development.
 
 ### Required preparation work
 
@@ -65,7 +65,7 @@ Before the core feature work starts, the project needs to be prepared for CLI de
 
 ### Readiness outcome
 
-The repo is ready to start building the CLI when:
+The repository readiness criteria were:
 
 - the project has a working `src/cli.ts`
 - the package has a `bin` entry
@@ -178,7 +178,6 @@ The SDK should be wrapped by a thin internal client layer so command logic and o
 | `@mysten/sui` | Sui SDK and RPC client |
 | `commander` | CLI parsing |
 | `zod` | runtime validation / normalization guardrails |
-| `chalk` | terminal styling |
 
 ### Suggested Internal Layers
 

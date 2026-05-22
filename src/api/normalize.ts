@@ -123,13 +123,29 @@ export function normalizePackageResponse(
   input: PackageClientData,
   network: SupportedNetwork,
 ): PackageSummary {
+  if (input.object.error !== undefined && input.object.error !== null) {
+    throw new CliError(
+      "Sui RPC returned an error for the requested package.",
+      EXIT_CODES.PROVIDER_FAILURE,
+      {
+        details: {
+          code: input.object.error.code,
+        },
+      },
+    );
+  }
+
+  if (input.object.data === undefined || input.object.data === null) {
+    throw new CliError("Sui RPC returned no package object data.", EXIT_CODES.VALIDATION_FAILURE);
+  }
+
   return normalizePackageSummary({
     kind: "package",
     modules: Object.keys(input.modules).toSorted(),
     network,
-    packageId: input.object.data?.objectId ?? "",
+    packageId: input.object.data.objectId,
     upgradeCapId: null,
-    version: input.object.data?.version ?? null,
+    version: input.object.data.version ?? null,
   });
 }
 
@@ -138,7 +154,7 @@ export function normalizeSummary(input: unknown): SuiSummary {
 }
 
 function formatMistAsSui(mist: string): string {
-  const mistValue = BigInt(mist);
+  const mistValue = parseBigIntValue(mist, "balance.totalBalance");
   const whole = mistValue / 1_000_000_000n;
   const fraction = `${mistValue % 1_000_000_000n}`.padStart(9, "0").replace(/0+$/, "");
 
@@ -194,9 +210,9 @@ function normalizeGasSummary(
 }
 
 function formatNetGasCost(gasUsed: GasCostSummary): string {
-  const computation = BigInt(gasUsed.computationCost);
-  const storage = BigInt(gasUsed.storageCost);
-  const rebate = BigInt(gasUsed.storageRebate);
+  const computation = parseBigIntValue(gasUsed.computationCost, "effects.gasUsed.computationCost");
+  const storage = parseBigIntValue(gasUsed.storageCost, "effects.gasUsed.storageCost");
+  const rebate = parseBigIntValue(gasUsed.storageRebate, "effects.gasUsed.storageRebate");
 
   return (computation + storage - rebate).toString();
 }
@@ -244,7 +260,19 @@ function formatTimestampMs(timestampMs: string | null | undefined): string | nul
     return null;
   }
 
-  return new Date(Number(timestampMs)).toISOString();
+  const parsedTimestampMs = Number(timestampMs);
+
+  if (!Number.isFinite(parsedTimestampMs)) {
+    throwValidationError("timestampMs", timestampMs);
+  }
+
+  const timestamp = new Date(parsedTimestampMs);
+
+  if (Number.isNaN(timestamp.getTime())) {
+    throwValidationError("timestampMs", timestampMs);
+  }
+
+  return timestamp.toISOString();
 }
 
 function normalizeObjectOwner(
@@ -271,4 +299,21 @@ function normalizeObjectOwner(
   }
 
   return `Shared(${owner.Shared.initial_shared_version})`;
+}
+
+function parseBigIntValue(value: string, field: string): bigint {
+  try {
+    return BigInt(value);
+  } catch {
+    throwValidationError(field, value);
+  }
+}
+
+function throwValidationError(field: string, value: string): never {
+  throw new CliError("Sui RPC returned malformed data.", EXIT_CODES.VALIDATION_FAILURE, {
+    details: {
+      field,
+      value,
+    },
+  });
 }

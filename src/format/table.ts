@@ -21,18 +21,31 @@ export function formatSummaryTable(summary: SuiSummary): string {
 }
 
 function formatAddressSummary(summary: AddressSummary): string {
+  const ownedObjectPreview =
+    summary.ownedObjects.items.length === 0
+      ? "none"
+      : summary.ownedObjects.items
+          .map(object => object.type ?? truncateMiddle(object.objectId))
+          .join(", ");
+  const recentTransactionPreview =
+    summary.recentTransactions.digests.length === 0
+      ? "none"
+      : summary.recentTransactions.digests.map(digest => truncateMiddle(digest)).join(", ");
+
   return joinLines([
     "Address",
     formatKeyValue("Address", truncateMiddle(summary.address)),
     formatKeyValue("Network", summary.network),
     formatKeyValue("SUI Balance", summary.balance.sui),
     formatKeyValue("Owned Objects", String(summary.ownedObjects.count)),
+    formatKeyValue("Owned Object Preview", ownedObjectPreview),
     formatKeyValue(
       "Recent Transactions",
       summary.recentTransactions.count === null
         ? "unavailable"
         : String(summary.recentTransactions.count),
     ),
+    formatKeyValue("Recent Transaction Preview", recentTransactionPreview),
   ]);
 }
 
@@ -67,10 +80,13 @@ function formatTransactionSummary(summary: TransactionSummary): string {
     formatKeyValue("Network", summary.network),
     formatKeyValue("Status", summary.status),
     formatKeyValue("Sender", summary.sender ?? "unknown"),
+    formatKeyValue("Timestamp", summary.timestamp ?? "unknown"),
+    formatKeyValue("Gas Used", summary.gas.total ?? "unknown"),
     formatKeyValue(
       "Changed Objects",
       summary.changedObjectsCount === null ? "unknown" : String(summary.changedObjectsCount),
     ),
+    formatKeyValue("Summary", summary.summary ?? "unknown"),
   ]);
 }
 

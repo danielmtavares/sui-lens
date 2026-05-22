@@ -2,6 +2,7 @@ import type { SuiTransactionBlockResponse } from "@mysten/sui/jsonRpc";
 import { describe, expect, it } from "vitest";
 
 import { normalizeTransactionResponse } from "../src/api/normalize.js";
+import { EXIT_CODES } from "../src/utils/errors.js";
 import fixture from "./fixtures/tx.json" with { type: "json" };
 
 const txFixture = fixture as unknown as SuiTransactionBlockResponse;
@@ -82,4 +83,35 @@ describe("normalizeTransactionResponse", () => {
     expect(result.changedObjectsCount).toBe(3);
     expect(result.summary).toBeNull();
   });
+
+  it("treats malformed timestamps as validation failures", () => {
+    const error = getThrownError(() =>
+      normalizeTransactionResponse(
+        {
+          digest: "4jA6v7fLQx6oA2KpN8rTsW1d",
+          timestampMs: "not-a-number",
+        },
+        "mainnet",
+      ),
+    );
+
+    expect(error).toMatchObject({
+      code: EXIT_CODES.VALIDATION_FAILURE,
+      details: {
+        field: "timestampMs",
+        value: "not-a-number",
+      },
+      message: "Sui RPC returned malformed data.",
+    });
+  });
 });
+
+function getThrownError(callback: () => unknown): unknown {
+  try {
+    callback();
+  } catch (error) {
+    return error;
+  }
+
+  throw new Error("Expected callback to throw.");
+}

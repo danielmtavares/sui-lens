@@ -26,6 +26,8 @@ describe("formatSummaryTable", () => {
     expect(result).toContain("Address");
     expect(result).toContain("Network: mainnet");
     expect(result).toContain("Owned Objects: 2");
+    expect(result).toContain("Owned Object Preview: none");
+    expect(result).toContain("Recent Transaction Preview: none");
   });
 
   it("formats a transaction summary for terminal output", () => {
@@ -48,6 +50,9 @@ describe("formatSummaryTable", () => {
 
     expect(result).toContain("Transaction");
     expect(result).toContain("Status: success");
+    expect(result).toContain("Timestamp: unknown");
+    expect(result).toContain("Gas Used: unknown");
+    expect(result).toContain("Summary: unknown");
   });
 });
 
