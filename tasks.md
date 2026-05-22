@@ -557,7 +557,7 @@ Make the CLI feel polished while keeping shared CLI changes concentrated late.
 
  - [x] Improve help text
  - [x] Add command examples to help output
- - [ ] Improve validation messages
+ - [x] Improve validation messages
  - [x] Ensure error output stays readable
 
 ### Add tests
@@ -607,9 +607,9 @@ Make the CLI feel real, installable, and stable after the core command workflows
 
 ## Files to Update
 
-- [ ] `src/cli.ts`
-- [ ] `package.json`
-- [ ] `README.md`
+- [x] `src/cli.ts`
+- [x] `package.json`
+- [x] `README.md`
 - [ ] `tsup.config.ts`
 - [ ] `vitest.config.ts`
 
