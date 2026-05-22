@@ -6,6 +6,8 @@ A CLI-first tool for inspecting Sui addresses, objects, transactions, and packag
 
 This repository now includes a working CLI with real RPC-backed commands for addresses, objects, transactions, and packages.
 
+Built with Codex.
+
 ## Scope
 
 The planned command surface is:
