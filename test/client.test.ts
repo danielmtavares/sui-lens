@@ -115,6 +115,27 @@ describe("client fetch helpers", () => {
       message: "Sui RPC request timed out.",
     });
   });
+
+  it("retries and translates raw fetch failures into network errors", async () => {
+    const getObject = vi.fn<AsyncMock<never>>().mockRejectedValue(createFetchFailure());
+    const client = createFakeClient(
+      {
+        getObject,
+      },
+      {
+        maxRetries: 1,
+      },
+    );
+
+    await expect(fetchObjectData(client, "0xdead")).rejects.toMatchObject({
+      code: EXIT_CODES.NETWORK_FAILURE,
+      details: {
+        code: "EADDRNOTAVAIL",
+      },
+      message: "Network request to the Sui RPC failed.",
+    });
+    expect(getObject).toHaveBeenCalledTimes(2);
+  });
 });
 
 function createFakeClient(
@@ -142,4 +163,15 @@ function createAbortError(): Error {
   const error = new Error("Timed out");
   error.name = "AbortError";
   return error;
+}
+
+function createFetchFailure(): Error {
+  const cause = new Error("connect EADDRNOTAVAIL");
+  Object.assign(cause, {
+    code: "EADDRNOTAVAIL",
+  });
+
+  return new TypeError("fetch failed", {
+    cause,
+  });
 }

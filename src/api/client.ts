@@ -18,6 +18,7 @@ import { CliError, EXIT_CODES } from "../utils/errors.js";
 const DEFAULT_MAX_RETRIES = 2;
 const DEFAULT_TIMEOUT_MS = 8_000;
 const PREVIEW_LIMIT = 5;
+const RETRY_BASE_DELAY_MS = 250;
 
 type SuiReadClient = Pick<
   SuiJsonRpcClient,
@@ -76,29 +77,29 @@ export async function fetchAddressData(
   client: SuiLensClient,
   address: string,
 ): Promise<AddressClientData> {
-  const [balance, ownedObjects, recentTransactions] = await Promise.all([
-    runClientRequest(client, signal => client.rpc.getBalance({ owner: address, signal })),
-    runClientRequest(client, signal =>
-      client.rpc.getOwnedObjects({
-        limit: PREVIEW_LIMIT,
-        options: {
-          showType: true,
-        },
-        owner: address,
-        signal,
-      }),
-    ),
-    runClientRequest(client, signal =>
-      client.rpc.queryTransactionBlocks({
-        filter: {
-          FromAddress: address,
-        },
-        limit: PREVIEW_LIMIT,
-        order: "descending",
-        signal,
-      }),
-    ),
-  ]);
+  const balance = await runClientRequest(client, signal =>
+    client.rpc.getBalance({ owner: address, signal }),
+  );
+  const ownedObjects = await runClientRequest(client, signal =>
+    client.rpc.getOwnedObjects({
+      limit: PREVIEW_LIMIT,
+      options: {
+        showType: true,
+      },
+      owner: address,
+      signal,
+    }),
+  );
+  const recentTransactions = await runClientRequest(client, signal =>
+    client.rpc.queryTransactionBlocks({
+      filter: {
+        FromAddress: address,
+      },
+      limit: PREVIEW_LIMIT,
+      order: "descending",
+      signal,
+    }),
+  );
 
   return {
     balance,
@@ -194,9 +195,20 @@ async function runClientRequest<T>(
     }
 
     attempt += 1;
+    await delay(getRetryDelayMs(attempt));
   }
 
   throw translateClientError(lastError);
+}
+
+function getRetryDelayMs(attempt: number): number {
+  return RETRY_BASE_DELAY_MS * 2 ** (attempt - 1);
+}
+
+function delay(ms: number): Promise<void> {
+  return new Promise(resolve => {
+    setTimeout(resolve, ms);
+  });
 }
 
 function isRetryableError(error: unknown): boolean {
@@ -212,7 +224,7 @@ function isRetryableError(error: unknown): boolean {
     return false;
   }
 
-  return error instanceof Error && error.name === "AbortError";
+  return error instanceof Error && (error.name === "AbortError" || isFetchFailure(error));
 }
 
 function translateClientError(error: unknown): CliError {
@@ -250,7 +262,29 @@ function translateClientError(error: unknown): CliError {
     });
   }
 
+  if (error instanceof Error && isFetchFailure(error)) {
+    return new CliError("Network request to the Sui RPC failed.", EXIT_CODES.NETWORK_FAILURE, {
+      cause: error,
+      details: getNetworkFailureDetails(error),
+    });
+  }
+
   return new CliError("Unexpected Sui client failure.", EXIT_CODES.UNKNOWN_FAILURE, {
     cause: error instanceof Error ? error : undefined,
   });
+}
+
+function isFetchFailure(error: Error): boolean {
+  return error.name === "TypeError" && error.message === "fetch failed";
+}
+
+function getNetworkFailureDetails(error: Error): Record<string, string> {
+  const details: Record<string, string> = {};
+  const cause = error.cause;
+
+  if (cause instanceof Error && "code" in cause && typeof cause.code === "string") {
+    details.code = cause.code;
+  }
+
+  return details;
 }

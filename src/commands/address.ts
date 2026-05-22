@@ -2,10 +2,8 @@ import type { Command } from "commander";
 
 import { createSuiClient, fetchAddressData } from "../api/client.js";
 import { normalizeAddressResponse } from "../api/normalize.js";
-import { formatSummaryJson } from "../format/json.js";
-import { formatSummaryTable } from "../format/table.js";
 import { assertSuiAddress } from "../utils/ids.js";
-import { addSharedInspectionOptions, type SharedCommandOptions } from "./shared.js";
+import { addSharedInspectionOptions, renderSummary, type SharedCommandOptions } from "./shared.js";
 
 export type AddressCommandOptions = SharedCommandOptions;
 
@@ -33,10 +31,6 @@ export async function runAddressCommand(
         });
   const response = await fetchAddressData(client, normalizedAddress);
   const summary = normalizeAddressResponse(response, normalizedAddress, client.network);
-  const output =
-    options.json === true || options.format === "json"
-      ? formatSummaryJson(summary)
-      : formatSummaryTable(summary);
 
-  process.stdout.write(output);
+  renderSummary(summary, options);
 }

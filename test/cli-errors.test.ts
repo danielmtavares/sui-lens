@@ -26,10 +26,12 @@ describe("CLI error handling", () => {
 
   it("preserves commander exit codes for parse errors", async () => {
     const errorSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+    const stderrSpy = vi.spyOn(process.stderr, "write").mockReturnValue(true);
 
     await runCli(["node", "sui-lens", "address"]);
 
     expect(process.exitCode).toBe(1);
     expect(errorSpy).not.toHaveBeenCalled();
+    expect(stderrSpy).toHaveBeenCalledWith(expect.stringContaining("missing required argument"));
   });
 });

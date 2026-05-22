@@ -28,7 +28,7 @@ export function createCli(): Command {
 
 export async function runCli(argv: readonly string[] = process.argv): Promise<void> {
   try {
-    await createCli().parseAsync(argv);
+    await createCli().parseAsync(normalizeCliArgv(argv));
   } catch (err) {
     if (err instanceof CommanderError) {
       process.exitCode = err.exitCode;
@@ -37,6 +37,14 @@ export async function runCli(argv: readonly string[] = process.argv): Promise<vo
 
     process.exitCode = reportErrorToStderr(err);
   }
+}
+
+function normalizeCliArgv(argv: readonly string[]): readonly string[] {
+  if (argv[2] !== "--") {
+    return argv;
+  }
+
+  return [...argv.slice(0, 2), ...argv.slice(3)];
 }
 
 function isExecutedDirectly(): boolean {

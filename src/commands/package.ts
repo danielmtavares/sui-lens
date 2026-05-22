@@ -2,10 +2,8 @@ import type { Command } from "commander";
 
 import { createSuiClient, fetchPackageData } from "../api/client.js";
 import { normalizePackageResponse } from "../api/normalize.js";
-import { formatSummaryJson } from "../format/json.js";
-import { formatSummaryTable } from "../format/table.js";
 import { assertPackageId } from "../utils/ids.js";
-import { addSharedInspectionOptions, type SharedCommandOptions } from "./shared.js";
+import { addSharedInspectionOptions, renderSummary, type SharedCommandOptions } from "./shared.js";
 
 export type PackageCommandOptions = SharedCommandOptions;
 
@@ -33,10 +31,6 @@ export async function runPackageCommand(
         });
   const response = await fetchPackageData(client, normalizedPackageId);
   const summary = normalizePackageResponse(response, client.network);
-  const output =
-    options.json === true || options.format === "json"
-      ? formatSummaryJson(summary)
-      : formatSummaryTable(summary);
 
-  process.stdout.write(output);
+  renderSummary(summary, options);
 }
